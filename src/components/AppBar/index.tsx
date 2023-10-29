@@ -2,8 +2,8 @@ import React, { ChangeEvent } from "react";
 import { Typography } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
-import { PAGES } from "../../navigation/constants";
-import { useDebounce } from "../../hooks/useDebounce";
+import { PAGES } from "@/navigation/constants";
+import { useDebounce } from "@/hooks/useDebounce";
 import {
   SearchContainer,
   StyledAppBar,

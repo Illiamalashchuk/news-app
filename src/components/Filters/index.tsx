@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Button, Stack, Typography } from "@mui/material";
 
-import { useBanner } from "../../contexts/bannerContext";
-import { getApiError } from "../../utils/getApiError";
-import { API, CategoryType, DateRange, SourceType } from "../../types";
+import { useBanner } from "@/contexts/bannerContext";
+import { getApiError } from "@/utils/getApiError";
+import { API, CategoryType, DateRange, SourceType } from "@/types";
 
-import { Select } from "../Select";
 import { MultiSelect } from "../MultiSelect";
 import { Loader } from "../Loader";
+import { Select } from "../Select";
 
 export type OnApplyType = ({
   category,

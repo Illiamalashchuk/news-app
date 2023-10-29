@@ -3,7 +3,7 @@ import {
   NYTimesArticle,
   NewsApiArticle,
   NewsDataArticle,
-} from "../types";
+} from "@/types";
 
 export function formatNewsApiArticle(data: NewsApiArticle): Article {
   return {

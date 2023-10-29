@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-import { API_MAP } from "../../constants";
-import { getApiError } from "../../utils/getApiError";
+import { API_MAP } from "@/constants";
+import { getApiError } from "@/utils/getApiError";
 import {
   API,
   ArticleType,
@@ -10,14 +10,14 @@ import {
   NYTimesArticle,
   NewsApiArticle,
   NewsDataArticle,
-} from "../../types";
-import { useBanner } from "../../contexts/bannerContext";
-import { Layout } from "../../components/Layout";
-import { Article } from "../../components/Article";
-import { Navigation } from "../../components/Navigation";
-import { Loader } from "../../components/Loader";
-import { EmptyState } from "../../components/EmptyState";
-import { Pagination } from "../../components/Pagination";
+} from "@/types";
+import { useBanner } from "@/contexts/bannerContext";
+import { Layout } from "@/components/Layout";
+import { Article } from "@/components/Article";
+import { Navigation } from "@/components/Navigation";
+import { Loader } from "@/components/Loader";
+import { EmptyState } from "@/components/EmptyState";
+import { Pagination } from "@/components/Pagination";
 
 export const MainPage: React.FC = () => {
   const { setBanner } = useBanner();

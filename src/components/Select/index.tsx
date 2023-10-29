@@ -1,8 +1,11 @@
 import * as React from "react";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import MuiSelect, { SelectChangeEvent } from "@mui/material/Select";
+import {
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select as MuiSelect,
+  SelectChangeEvent,
+} from "@mui/material";
 
 type Props = {
   value: string;

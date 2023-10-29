@@ -12,8 +12,8 @@ import {
   CardContent,
 } from "@mui/material";
 
-import { Article as ArticleType } from "../../types";
-import { DATE_FORMAT } from "../../constants";
+import { Article as ArticleType } from "@/types";
+import { DATE_FORMAT } from "@/constants";
 
 export const Article: React.FC<ArticleType> = ({
   title,

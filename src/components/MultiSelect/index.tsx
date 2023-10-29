@@ -1,9 +1,14 @@
 import React, { useMemo } from "react";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import MuiSelect, { SelectChangeEvent } from "@mui/material/Select";
-import { Checkbox, ListItemText, OutlinedInput } from "@mui/material";
+import {
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select as MuiSelect,
+  Checkbox,
+  ListItemText,
+  OutlinedInput,
+  SelectChangeEvent,
+} from "@mui/material";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;

@@ -2,8 +2,8 @@ import React, { useMemo, useState } from "react";
 import { Box, Drawer, Fab } from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList";
 
-import { API, CategoryType, DateRange } from "../../types";
-import { API_MAP } from "../../constants";
+import { API, CategoryType, DateRange } from "@/types";
+import { API_MAP } from "@/constants";
 
 import { AppBar } from "../AppBar";
 import { Filters, OnApplyType } from "../Filters";

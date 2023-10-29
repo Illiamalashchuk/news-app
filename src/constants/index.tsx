@@ -1,21 +1,21 @@
-import { ReactComponent as NewsAPIIcon } from "../assets/icons/NewsAPI.svg";
-import { ReactComponent as NYTimesIcon } from "../assets/icons/NewYorkTimes.svg";
-import NewsDataIcon from "../assets/icons/NewsdataIO.png";
+import { ReactComponent as NewsAPIIcon } from "@/assets/icons/NewsAPI.svg";
+import { ReactComponent as NYTimesIcon } from "@/assets/icons/NewYorkTimes.svg";
+import { ReactComponent as NewsDataIcon } from "@/assets/icons/NewsDataIO.svg";
 
 import {
   API,
   NYTimesCategory,
   NewsApiCategory,
   NewsDataCategory,
-} from "../types";
-import { newsApi } from "../api/newsApi";
-import { NYTimesApi } from "../api/NYTimesApi";
-import { newsDataApi } from "../api/newsData";
+} from "@/types";
+import { newsApi } from "@/api/newsApi";
+import { NYTimesApi } from "@/api/NYTimesApi";
+import { newsDataApi } from "@/api/newsData";
 import {
   formatNYTimesArticle,
   formatNewsApiArticle,
   formatNewsDataArticle,
-} from "../utils/formatArticle";
+} from "@/utils/formatArticle";
 
 export const DATE_FORMAT = "MMM D, YYYY";
 
@@ -39,6 +39,6 @@ export const API_MAP = {
     categories: Object.values(NewsDataCategory),
     formatArticle: formatNewsDataArticle,
     label: "NewsData.IO",
-    icon: <img src={NewsDataIcon} height={30} alt="NewsData.IO" />,
+    icon: <NewsDataIcon height={30} width={30} />,
   },
 };

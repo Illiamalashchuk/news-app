@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
-import { AppBar } from "../../components/AppBar";
-import { Layout } from "../../components/Layout";
+import { AppBar } from "@/components/AppBar";
+import { Layout } from "@/components/Layout";
 
 export const NotFoundPage: React.FC = () => {
   return (

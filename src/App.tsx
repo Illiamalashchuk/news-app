@@ -1,6 +1,5 @@
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { Router } from "./navigation/routes";
-import "./App.css";
 import { BannerProvider } from "./contexts/bannerContext";
 
 const theme = createTheme({});

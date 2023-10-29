@@ -1,4 +1,4 @@
-import { DateRange } from "../types";
+import { DateRange } from "@/types";
 
 export type ArticleRequestParams<C> = {
   query?: string;

@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
-import { DateRange } from "../types";
+import { DateRange } from "@/types";
 
 dayjs.extend(utc);
 

@@ -1,7 +1,7 @@
 import axios from "axios";
-import { NYTimesArticle, NYTimesCategory, SourceType } from "../types";
+import { NYTimesArticle, NYTimesCategory, SourceType } from "@/types";
+import { getDateRanges } from "@/utils/getDateRanges";
 import { ArticleResponse, ArticleRequestParams } from "./types";
-import { getDateRanges } from "../utils/getDateRanges";
 
 const API_KEY = import.meta.env.VITE_NY_TIMES_API_KEY;
 const API_URL = import.meta.env.VITE_NY_TIMES_API_URL;
