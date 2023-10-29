@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import { Box, Drawer, Fab } from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList";
 
-import { API, CategoryType } from "../../types";
+import { API, CategoryType, DateRange } from "../../types";
 import { API_MAP } from "../../constants";
 
 import { AppBar } from "../AppBar";
@@ -23,6 +23,7 @@ type Props = {
   api: API;
   category: CategoryType | string;
   source: string[];
+  range: DateRange | null;
   onSearchChange: (value: string) => void;
   onApiChange: (value: API) => void;
   onApply: OnApplyType;
@@ -32,6 +33,7 @@ export const Navigation: React.FC<Props> = ({
   api,
   category,
   source,
+  range,
   onSearchChange,
   onApiChange,
   onApply,
@@ -56,8 +58,8 @@ export const Navigation: React.FC<Props> = ({
   };
 
   const badgeContent = useMemo(
-    () => [category, source.length].filter(Boolean).length,
-    [category, source]
+    () => [category, source.length, range].filter(Boolean).length,
+    [category, source, range]
   );
 
   const apiData = API_MAP[api];
@@ -85,6 +87,7 @@ export const Navigation: React.FC<Props> = ({
             categories={apiData?.categories}
             category={category}
             source={source}
+            range={range}
             loadSources={apiData?.api.sources}
             onApply={handleApply}
           />

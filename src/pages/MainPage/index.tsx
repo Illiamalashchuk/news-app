@@ -6,6 +6,7 @@ import {
   API,
   ArticleType,
   CategoryType,
+  DateRange,
   NYTimesArticle,
   NewsApiArticle,
   NewsDataArticle,
@@ -22,13 +23,19 @@ export const MainPage: React.FC = () => {
   const { setBanner } = useBanner();
 
   const [api, setApi] = useState(API.NYTimes);
-  const [category, setCategory] = useState<CategoryType | string>("");
+
+  // filter properties
   const [search, setSearch] = useState("");
+  const [category, setCategory] = useState<CategoryType | string>("");
   const [source, setSource] = useState<string[]>([]);
+  const [range, setRange] = useState<DateRange | null>(null);
+
   const [articles, setArticles] = useState<
     Array<NewsApiArticle | NewsDataArticle | NYTimesArticle>
   >([]);
-  const [nextPage, setNextPage] = useState<number | string | null>(null);
+
+  // pagination properties
+  const [nextPage, setNextPage] = useState<number | string>(0);
   const [total, setTotal] = useState(0);
 
   const [loading, setLoading] = useState(true);
@@ -38,15 +45,17 @@ export const MainPage: React.FC = () => {
   const handleApply = (values: {
     category: CategoryType | "";
     source: string[];
+    range: DateRange | null;
   }) => {
     setCategory(values.category);
     setSource(values.source);
+    setRange(values.range);
   };
 
   const handleReset = () => {
     setArticles([]);
-    handleApply({ category: "", source: [] });
-    setNextPage(null);
+    handleApply({ category: "", source: [], range: null });
+    setNextPage(0);
     setTotal(0);
   };
 
@@ -55,8 +64,8 @@ export const MainPage: React.FC = () => {
     setApi(value);
   };
 
-  const fetchArticles = async () => {
-    if (articles.length && articles.length === total) {
+  const fetchArticles = async (filtering: boolean) => {
+    if (articles.length && articles.length === total && !filtering) {
       return;
     }
 
@@ -66,11 +75,15 @@ export const MainPage: React.FC = () => {
         query: search,
         category,
         source,
-        page: nextPage,
+        range,
+        page: (filtering ? 0 : nextPage) as string | number,
       });
 
-      setArticles([...articles, ...result.articles]);
+      setArticles(
+        filtering ? result.articles : [...articles, ...result.articles]
+      );
       setTotal(result.total);
+
       setNextPage(result.nextPage);
     } catch (error: unknown) {
       const message = (error as AxiosError).response?.data?.message;
@@ -82,10 +95,11 @@ export const MainPage: React.FC = () => {
 
   useEffect(() => {
     (async () => {
-      await fetchArticles();
+      // only filtering
+      await fetchArticles(true);
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [api]);
+  }, [api, search, category, source, range]);
 
   return (
     <Layout
@@ -94,6 +108,7 @@ export const MainPage: React.FC = () => {
           api={api}
           category={category}
           source={source}
+          range={range}
           onSearchChange={setSearch}
           onApiChange={handleApiChange}
           onApply={handleApply}
@@ -104,7 +119,8 @@ export const MainPage: React.FC = () => {
           total={total}
           count={articles.length}
           loading={loading}
-          loadMore={fetchArticles}
+          // only go next (with filters)
+          loadMore={() => fetchArticles(false)}
         />
       }
       loader={loading && !articles.length ? <Loader /> : null}

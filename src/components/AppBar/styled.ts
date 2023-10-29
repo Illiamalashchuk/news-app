@@ -1,4 +1,5 @@
 import { AppBar, Box, InputBase, alpha, styled } from "@mui/material";
+import { Link } from "react-router-dom";
 
 export const StyledAppBar = styled(AppBar)`
   height: 56px;
@@ -40,4 +41,9 @@ export const StyledInputBase = styled(InputBase)`
   & .MuiInputBase-input {
     padding-left: 8px;
   }
+`;
+
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
 `;

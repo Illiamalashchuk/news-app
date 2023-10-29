@@ -3,7 +3,7 @@ import { Button, Stack, Typography } from "@mui/material";
 import { AxiosError } from "axios";
 
 import { useBanner } from "../../contexts/bannerContext";
-import { API, CategoryType, SourceType } from "../../types";
+import { API, CategoryType, DateRange, SourceType } from "../../types";
 
 import { Select } from "../Select";
 import { MultiSelect } from "../MultiSelect";
@@ -12,9 +12,11 @@ import { Loader } from "../Loader";
 export type OnApplyType = ({
   category,
   source,
+  range,
 }: {
   category: CategoryType | "";
   source: string[];
+  range: DateRange | null;
 }) => void;
 
 type Props = {
@@ -22,6 +24,7 @@ type Props = {
   categories: CategoryType[];
   category: CategoryType | string;
   source: string[];
+  range: DateRange | null;
   loadSources: () => Promise<SourceType[]>;
   onApply: OnApplyType;
 };
@@ -31,6 +34,7 @@ export const Filters: React.FC<Props> = ({
   categories,
   category: defaultCategory,
   source: defaultSource,
+  range: defaultRange,
   loadSources,
   onApply,
 }) => {
@@ -38,6 +42,7 @@ export const Filters: React.FC<Props> = ({
 
   const [category, setCategory] = useState(defaultCategory);
   const [source, setSource] = useState<string[]>(defaultSource);
+  const [dateRange, setDateRange] = useState<DateRange | null>(defaultRange);
   const [sources, setSources] = useState<SourceType[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -49,15 +54,19 @@ export const Filters: React.FC<Props> = ({
     setSource(value);
   };
 
+  const handleRangeChange = (value: string) => {
+    setDateRange(value as DateRange);
+  };
+
   const handleApply = () => {
-    onApply({ category: category as CategoryType, source });
+    onApply({ category: category as CategoryType, source, range: dateRange });
   };
 
   const handleReset = () => {
     setCategory("");
     setSource([]);
     setSources([]);
-    onApply({ category: "", source: [] });
+    onApply({ category: "", source: [], range: null });
   };
 
   const fetchSources = async () => {
@@ -101,6 +110,12 @@ export const Filters: React.FC<Props> = ({
               options={sources}
               value={source}
               onChange={handleSourceChange}
+            />
+            <Select
+              label="Date range"
+              value={dateRange || ""}
+              options={Object.values(DateRange)}
+              onChange={handleRangeChange}
             />
           </Stack>
 

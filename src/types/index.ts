@@ -4,6 +4,12 @@ export enum API {
   NYTimes = "NYTimes",
 }
 
+export enum DateRange {
+  Hour = "Last hour",
+  SixHours = "Last 6 hours",
+  Day = "Last Day",
+}
+
 export enum NewsApiCategory {
   General = "General",
   Business = "Business ",

@@ -2,7 +2,7 @@ import { StyledContainer, StyledContent } from "./styled";
 
 type Props = {
   navigation: React.ReactNode;
-  footer: React.ReactNode;
+  footer?: React.ReactNode;
   loader?: React.ReactNode;
   empty?: React.ReactNode;
   children: React.ReactNode;

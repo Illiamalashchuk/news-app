@@ -6,6 +6,7 @@ import {
   SourceType,
 } from "../types";
 import { ArticleResponse, ArticleRequestParams } from "./types";
+import { getDateRanges } from "../utils/getDateRanges";
 
 const API_KEY = import.meta.env.VITE_NEWS_DATA_API_KEY;
 const API_URL = import.meta.env.VITE_NEWS_DATA_API_URL;
@@ -23,11 +24,13 @@ export const newsDataApi = {
     query,
     category,
     source,
+    range,
     page,
-  }: ArticleRequestParams<NewsDataCategory, string>): ArticleResponse<
+  }: ArticleRequestParams<NewsDataCategory>): ArticleResponse<
     NewsDataArticle,
     string
   > {
+    const ranges = getDateRanges();
     const result = await axiosInstance.get<{
       totalResults: number;
       results: NewsDataArticle[];
@@ -36,6 +39,7 @@ export const newsDataApi = {
       params: {
         apikey: API_KEY,
         language: "en",
+        timeframe: range && ranges[range].timeframe,
         ...(query ? { q: query } : {}),
         ...(category ? { category } : {}),
         ...(source?.length ? { domain: source?.join(",") } : {}),

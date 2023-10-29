@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useMemo } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -36,6 +36,15 @@ export const MultiSelect: React.FC<Props> = ({
     onChange(typeof value === "string" ? value.split(",") : value);
   };
 
+  const optionsMap = useMemo(
+    () =>
+      options.reduce<Record<string, string>>(
+        (acc, item) => ({ ...acc, [item.value]: item.label }),
+        {}
+      ),
+    [options]
+  );
+
   return (
     <div>
       <FormControl fullWidth>
@@ -46,7 +55,10 @@ export const MultiSelect: React.FC<Props> = ({
           value={value}
           onChange={handleChange}
           input={<OutlinedInput label={label} />}
-          renderValue={(selected: string[]) => selected.join(", ")}
+          renderValue={(selected: string[]) => {
+            console.log(selected);
+            return selected.map((key) => optionsMap[key]).join(", ");
+          }}
           MenuProps={MenuProps}
         >
           {options.map((option) => (

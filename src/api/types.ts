@@ -1,8 +1,11 @@
-export type ArticleRequestParams<C, P> = {
+import { DateRange } from "../types";
+
+export type ArticleRequestParams<C> = {
   query?: string;
   category?: C | string;
   source?: string[];
-  page: P;
+  range: DateRange | null;
+  page: string | number;
 };
 
 export type ArticleResponse<A, P> = Promise<{

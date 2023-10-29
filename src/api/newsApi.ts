@@ -6,6 +6,7 @@ import {
   SourceType,
 } from "../types";
 import { ArticleResponse, ArticleRequestParams } from "./types";
+import { getDateRanges } from "../utils/getDateRanges";
 
 const API_KEY = import.meta.env.VITE_NEWS_API_KEY;
 const API_URL = import.meta.env.VITE_NEWS_API_URL;
@@ -24,11 +25,13 @@ export const newsApi = {
     query,
     category,
     source,
+    range,
     page,
-  }: ArticleRequestParams<NewsApiCategory, number>): ArticleResponse<
+  }: ArticleRequestParams<NewsApiCategory>): ArticleResponse<
     NewsApiArticle,
     number
   > {
+    const ranges = getDateRanges();
     const result = await axiosInstance.get<{
       totalResults: number;
       articles: NewsApiArticle[];
@@ -38,6 +41,12 @@ export const newsApi = {
         ...(query ? { q: query } : {}),
         ...(category ? { category } : {}),
         ...(source?.length ? { source: source?.join(",") } : {}),
+        ...(range && ranges[range]
+          ? {
+              from: ranges[range].from.format("YYYY-MM-DD HH:mm:ss"),
+              to: ranges[range].to.format("YYYY-MM-DD HH:mm:ss"),
+            }
+          : {}),
         ...(!page ? {} : { page }),
       },
     });
@@ -45,7 +54,7 @@ export const newsApi = {
     return {
       articles: result.data.articles,
       total: result.data.totalResults,
-      nextPage: page + 1,
+      nextPage: (page as number) + 1,
     };
   },
   async sources(): Promise<SourceType[]> {
