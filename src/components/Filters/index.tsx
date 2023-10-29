@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Button, Stack, Typography } from "@mui/material";
-import { AxiosError } from "axios";
 
 import { useBanner } from "../../contexts/bannerContext";
+import { getApiError } from "../../utils/getApiError";
 import { API, CategoryType, DateRange, SourceType } from "../../types";
 
 import { Select } from "../Select";
@@ -75,9 +75,9 @@ export const Filters: React.FC<Props> = ({
       const result = await loadSources();
 
       setSources(result);
-    } catch (error: unknown) {
-      const message = (error as AxiosError).response?.data?.message;
-      setBanner({ type: "error", message: message || error?.message });
+    } catch (error) {
+      const message = getApiError(error);
+      setBanner({ type: "error", message });
     } finally {
       setLoading(false);
     }

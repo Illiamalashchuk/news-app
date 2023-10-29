@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { AxiosError } from "axios";
 
 import { API_MAP } from "../../constants";
+import { getApiError } from "../../utils/getApiError";
 import {
   API,
   ArticleType,
@@ -86,8 +86,8 @@ export const MainPage: React.FC = () => {
 
       setNextPage(result.nextPage);
     } catch (error: unknown) {
-      const message = (error as AxiosError).response?.data?.message;
-      setBanner({ type: "error", message: message || error?.message });
+      const message = getApiError(error);
+      setBanner({ type: "error", message });
     } finally {
       setLoading(false);
     }
